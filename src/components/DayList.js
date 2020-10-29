@@ -13,7 +13,6 @@ const items = props.days.map((day) => {
   />)
 }); 
 
-console.log(items);
   return (
     <ul>
       {items}
