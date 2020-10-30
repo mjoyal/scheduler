@@ -11,7 +11,18 @@ function getAppointmentsForDay(state, day) {
   return appointments; 
 }
 
-const appoint = {student: "Archie Cohen", interviewer: 3}
+function getInterviewersForDay(state, day) {
+  const interviewers = [];
+  const filteredDay = state.days.filter(d => d.name === day);
+   if(!day.length || !filteredDay.length || !state.interviewers[1]) {
+     return interviewers; 
+   }
+  const interviewersAvailable = filteredDay[0].interviewers;
+  for (const interviewer of interviewersAvailable) {
+    interviewers.push(state.interviewers[interviewer]);
+  }
+  return interviewers; 
+}
 
 
 
@@ -27,4 +38,4 @@ function getInterview (state, appointment) {
   return interview;
 };
 
-export {getInterview, getAppointmentsForDay};
+export {getInterview, getAppointmentsForDay, getInterviewersForDay};

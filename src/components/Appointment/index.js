@@ -14,14 +14,6 @@ const Appointment = function(props) {
   const {mode, transition, back} = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  // let appointmentValue = [<Header time={props.time} />];
-  // props.interview ? 
-  // appointmentValue.push(
-  // <Show 
-  // student= {props.interview.student}
-  // interviewer = {props.interview.interviewer}
-  // />) : 
-  // appointmentValue.push(<Empty />);
      
   return (
     <article className="appointment">
@@ -36,7 +28,7 @@ const Appointment = function(props) {
       {mode === CREATE && (
         <Form
           // name={props.interview.student}
-          interviewers={[]}
+          interviewers={props.interviewers}
           onCancel={() => back()}
          />
       )}

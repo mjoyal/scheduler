@@ -6,7 +6,7 @@ import SideBar from './SideBar';
 import "components/Application.scss";
 
 import Appointment from './Appointment/index';
-import { getAppointmentsForDay, getInterview} from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
 
 
 
@@ -38,11 +38,12 @@ export default function Application(props) {
         setLoading(false);
       })  
   }, []);
-  
+
   if(loading) {
     return null; 
   }
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
 
   const schedule = dailyAppointments.map((appointment, index) => {
    const interview = getInterview(state, appointment.interview);
@@ -51,6 +52,7 @@ export default function Application(props) {
       key={index}
       {...appointment}
       interview={interview}
+      interviewers= {dailyInterviewers}
     />); 
 ; 
    })
