@@ -1,6 +1,8 @@
 import React from "react";
+import DayList from './DayList';
 
-function SideBar () {
+
+function SideBar (props) {
   return (
     <section className="sidebar"> 
         <img className="sidebar--centered"
@@ -8,12 +10,20 @@ function SideBar () {
         alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
-        <nav className="sidebar__menu"></nav>
+        <nav className="sidebar__menu">
+        <DayList 
+          day={props.day}
+          days={props.days}
+          setDay = {props.setDay}
+        /> 
+        </nav>
+
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
+        
       </section>
   );
 }
