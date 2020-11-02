@@ -1,6 +1,11 @@
 import React from "react";
 
 const Show = function (props) {
+
+  const onDelete = () => {
+    props.onDelete(props.interviewer.id)
+  };
+
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">
@@ -22,7 +27,7 @@ const Show = function (props) {
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
-            onClick={props.onDelete}
+            onClick={onDelete}
           />
         </section>
       </section>

@@ -25,7 +25,6 @@ function getInterviewersForDay(state, day) {
 }
 
 
-
 function getInterview (state, appointment) {
   if(appointment === null) {
     return null; 

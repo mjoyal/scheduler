@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect}  from "react";
 import axios from 'axios';
 import Button from './Button';
 import SideBar from './SideBar';
-
+import useApplicationData from './hooks/useApplicationData';
 import "components/Application.scss";
 
 import Appointment from './Appointment/index';
@@ -10,49 +10,33 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpe
 
 
 
-export default function Application(props) {
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {},
-    interviewers: {}
-  })
-  const [loading, setLoading] = useState(true);
-
-  const setDay = day => setState(prev => ({ ...prev, day }));
-  const setDays = days => setState(prev => ({ ...prev, days }));
-  const setAppointments = appointments => setState(prev => ({...prev, appointments}));
-  const setInterviewers = interviewers => setState(prev => ({...prev, interviewers}));
-
-  useEffect(() => {
-    const baseUrl = 'http://localhost:8001/api';
-    const promise1 = axios.get(`${baseUrl}/days`);
-    const promise2 = axios.get(`${baseUrl}/appointments`);
-    const promise3 = axios.get(`${baseUrl}/interviewers`);
-    const promises = [promise1, promise2, promise3];
-    Promise.all(promises)
-      .then((response) => {
-        setDays(response[0].data)
-        setAppointments(response[1].data);
-        setInterviewers(response[2].data);
-        setLoading(false);
-      })  
-  }, []);
+export default function Application() {
+  const {
+    state, 
+    loading,
+    setDay,
+    bookInterview, 
+    deleteInterview, 
+         } = useApplicationData();
 
   if(loading) {
     return null; 
   }
+ 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
-  const schedule = dailyAppointments.map((appointment, index) => {
+  const schedule = dailyAppointments.map((appointment) => {
    const interview = getInterview(state, appointment.interview);
+   console.log(interview);
     return (
     <Appointment 
-      key={index}
+      key={appointment.id}
       {...appointment}
       interview={interview}
       interviewers= {dailyInterviewers}
+      bookInterview = {bookInterview}
+      deleteInterview = {deleteInterview}
     />); 
 ; 
    })
