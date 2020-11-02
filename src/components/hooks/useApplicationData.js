@@ -14,8 +14,9 @@ const useApplicationData = function () {
   const setDays = days => setState(prev => ({ ...prev, days }));
   const setAppointments = appointments => setState(prev => ({...prev, appointments}));
   const setInterviewers = interviewers => setState(prev => ({...prev, interviewers}));
+  const baseUrl = 'http://localhost:8001/api';
+
   useEffect(() => {
-    const baseUrl = 'http://localhost:8001/api';
     const promise1 = axios.get(`${baseUrl}/days`);
     const promise2 = axios.get(`${baseUrl}/appointments`);
     const promise3 = axios.get(`${baseUrl}/interviewers`);
@@ -28,6 +29,14 @@ const useApplicationData = function () {
         setLoading(false);
       })  
   }, []);
+
+  const updateSpots = (/*appointmentId, add*/) => {
+    axios.get(`${baseUrl}/days`)
+      .then((response) => {
+        setDays(response.data);
+      })
+  };
+
 
   return {
     state, 
@@ -45,9 +54,11 @@ const useApplicationData = function () {
        return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
         .then((response) => {
           setAppointments(appointments);
+          updateSpots();
         })
     }, 
     deleteInterview : (id) => {
+        console.log('interview deleted', id);
         const appointment = {
           ...state.appointments[id],
           interview: {...null}
@@ -59,8 +70,8 @@ const useApplicationData = function () {
        
         return axios.delete(`http://localhost:8001/api/appointments/${id}`, appointment)
         .then((response) => {
-          console.log('updated')
           setAppointments(appointments);
+          updateSpots();
         })
       }
     
