@@ -18,7 +18,7 @@ export default function Application() {
     bookInterview, 
     deleteInterview, 
          } = useApplicationData();
-
+  
   if(loading) {
     return null; 
   }
@@ -27,8 +27,8 @@ export default function Application() {
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
   const schedule = dailyAppointments.map((appointment) => {
+  
   const interview = getInterview(state, appointment.interview);
-   
     return (
     <Appointment 
       key={appointment.id}
@@ -38,7 +38,6 @@ export default function Application() {
       bookInterview = {bookInterview}
       deleteInterview = {deleteInterview}
     />); 
-; 
    })
 
   return (

@@ -1,9 +1,14 @@
 function getAppointmentsForDay(state, day) {
   const appointments = [];
+  
   const filteredDay = state.days.filter(d => d.name === day);
+
    if(!day.length || !filteredDay.length || !state.appointments[1]) {
+     console.log(day.length);
+     console.log(filteredDay.length)
      return appointments; 
    }
+   
   const appointmentSlots = filteredDay[0].appointments;
   for (const appointment of appointmentSlots) {
     appointments.push(state.appointments[appointment]);

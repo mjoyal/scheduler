@@ -20,7 +20,7 @@ const fixtures = {
     "2": {
       id: 2,
       time: "1pm",
-      interview: { student: "Archie Cohen", interviewer: 2 }
+      interview: { student: "mac", interviewer: 2 } // Archie Cohen
     },
     "3": {
       id: 3,
@@ -52,3 +52,37 @@ const fixtures = {
     }
   }
 };
+
+
+export default {
+  defaults: { baseURL: "" },
+  get: jest.fn(url => {
+    if (url === "http://localhost:8001/api/days") {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.days
+      });
+    }
+
+    if (url === "http://localhost:8001/api/appointments") {
+      return Promise.resolve({
+        status: 200, 
+        statusText: "OK", 
+        data: fixtures.appointments
+      });
+    }
+
+    if (url === "http://localhost:8001/api/interviewers") {
+      return Promise.resolve({
+        status: 200, 
+        statusText: "OK", 
+        data: fixtures.interviewers
+      });
+    }
+  }),
+  put: jest.fn(url => {
+
+  })
+  
+}
