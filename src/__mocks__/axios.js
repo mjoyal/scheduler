@@ -82,21 +82,29 @@ export default {
     }
   }),
   put: jest.fn((url, appointment) => {
-    const id = url[url.length - 1];
+    const id = parseInt(url[url.length - 1]);
     fixtures.appointments[id] = appointment; 
-    fixtures.days[id - 1].spots--; 
+    for(const day of fixtures.days) {
+      console.log(typeof id)
+      if(day.appointments.includes(id)) {
+        day.spots--; 
+        console.log(day.spots)
+      }
+    }
     return Promise.resolve({
       status: 204, 
       statusText: "No content"
     })
   }), 
   delete: jest.fn((url, appointment) => {
-    console.log(appointment);
-    const id = url[url.length - 1];
-    console.log(id);
+    const id = parseInt(url[url.length - 1]);
     fixtures.appointments[id] = appointment; 
-    fixtures.days[id - 1].spots++; 
-    console.log(fixtures.days[id - 1])
+    for(const day of fixtures.days) {
+      console.log(typeof id)
+      if(day.appointments.includes(id)) {
+        day.spots++; 
+      }
+    }
     return Promise.resolve({
       status: 204, 
       statusText: "No content"
