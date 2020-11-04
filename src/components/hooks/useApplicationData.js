@@ -37,12 +37,12 @@ const useApplicationData = function () {
       })
   };
 
-
   return {
     state, 
     loading,
     setDay,
     bookInterview: (id, interview) => {
+     
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
@@ -50,7 +50,8 @@ const useApplicationData = function () {
       const appointments = {
         ...state.appointments,
         [id]: appointment
-      };
+      }
+      
        return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
         .then((response) => {
           setAppointments(appointments);
