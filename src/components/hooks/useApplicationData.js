@@ -58,7 +58,6 @@ const useApplicationData = function () {
         })
     }, 
     deleteInterview : (id) => {
-        console.log('interview deleted', id);
         const appointment = {
           ...state.appointments[id],
           interview: {...null}
