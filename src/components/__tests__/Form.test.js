@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, getByAltText } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
 import { fireEvent } from "@testing-library/react";
@@ -64,6 +64,7 @@ describe("Form", () => {
     const input = getByPlaceholderText("Enter Student Name");
   
     fireEvent.change(input, { target: { value: "Lydia Miller-Jones" } });
+    
     fireEvent.click(getByText("Save"));
   
     expect(onSave).toHaveBeenCalledTimes(1);
@@ -80,7 +81,7 @@ describe("Form", () => {
         onCancel={onCancel}
       />
     );
-  
+    
     fireEvent.click(getByText("Save"));
   
     fireEvent.change(getByPlaceholderText("Enter Student Name"), {

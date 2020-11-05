@@ -4,8 +4,6 @@ function getAppointmentsForDay(state, day) {
   const filteredDay = state.days.filter(d => d.name === day);
 
    if(!day.length || !filteredDay.length || !state.appointments[1]) {
-     console.log(day.length);
-     console.log(filteredDay.length)
      return appointments; 
    }
    
@@ -42,4 +40,26 @@ function getInterview (state, appointment) {
   return interview;
 };
 
-export {getInterview, getAppointmentsForDay, getInterviewersForDay};
+function updateSpots (state, appointmentId, addSpots) {
+  for(const day of state.days) {
+    if(day.appointments.includes(appointmentId)) {
+        if(addSpots) {
+          state[day] = day.spots++;
+        } else {
+          state[day] = day.spots--;
+        }
+        return state.days;
+    }
+  }
+  
+  
+  // for(const day of days) {
+  //   if(day.name === selectedDay) {
+  //     return day.spots; 
+  //   }
+  // }
+}
+
+
+export {getInterview, getAppointmentsForDay, getInterviewersForDay, updateSpots};
+

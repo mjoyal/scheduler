@@ -22,9 +22,10 @@ describe('Application', () => {
   it('loads data, books an interview and reduces the spots remaining for the first day by 1', async () => {
     const { container } = render(<Application />);
     
-    await waitForElement(() => getByText(container, 'mac'));
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
     const appointments = getAllByTestId(container, 'appointment');
     const appointment = appointments[0];
+    
     fireEvent.click(getByAltText(appointment, 'Add')); 
 
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
@@ -43,12 +44,12 @@ describe('Application', () => {
               );
     expect(getByText(day, 'no spots remaining')).toBeInTheDocument();
 
-
   })
+
 
   it('loads data, cancels an interview and increases the spots remaining for Monday by 1', async () => {
     const { container } = render(<Application />);
-    await waitForElement(() => getByText(container, 'mac'));
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
     const appointment = getAllByTestId(container, 'appointment')[1];
  
     fireEvent.click(getByAltText(appointment, 'Delete'));
@@ -56,18 +57,21 @@ describe('Application', () => {
 
     fireEvent.click(getByText(appointment, /confirm/i));
     expect(getByText(appointment, /deleting/i)).toBeInTheDocument();
-
-    await waitForElement(() => getByAltText(appointment, /add/i))
+    await waitForElement(() => getByAltText(appointment, /add/i));
     expect(getByAltText(appointment, /add/i)).toBeInTheDocument();
     const day = getAllByTestId(container, 'day').find(day => 
       queryByText(day, "Monday")
       );
       expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
+
   })
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     const { container } = render(<Application />);
-    await waitForElement(() => getByText(container, ''));
-   
+    await waitForElement(() => getByText(container, '12pm'));
+    expect(getByText(container, "12pm")).toBeInTheDocument();
+    // const appointments = getAllByTestId(container, 'appointment');
+ 
   })
+
 })
