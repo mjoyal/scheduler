@@ -30,7 +30,8 @@ const Appointment = function(props) {
       .then(() => {
         transition(EMPTY)
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error(error)
         transition(ERROR_DELETE, true);
       });
   }
