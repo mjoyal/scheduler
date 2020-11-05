@@ -9,7 +9,8 @@ const useApplicationData = function () {
     appointments: {},
     interviewers: {}
   })
-  
+  console.log('rerendering');
+
   const [loading, setLoading] = useState(true);
   const setDay = day => setState(prev => ({ ...prev, day }));
   const setDays = days => setState(prev => ({ ...prev, days }));
@@ -30,21 +31,17 @@ const useApplicationData = function () {
       })  
   }, []);
   
-  // const updateSpots = (/*appointmentId, add*/) => {
+  useEffect (() => {
+   const newDays = updateSpots(state);
+    setDays(newDays);
+  }, [state.appointments]);
 
-    
-  //   // axios.get(`${baseUrl}/days`)
-  //   //   .then((response) => {
-  //   //     setDays(response.data);
-  //   //   })
-  // };
-
+ 
   return {
     state, 
     loading,
     setDay,
     bookInterview: (id, interview) => {
-
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
@@ -53,31 +50,25 @@ const useApplicationData = function () {
         ...state.appointments,
         [id]: appointment
       }
+      
        return axios.put(`/api/appointments/${id}`, appointment)
         .then((response) => {
-          const updatedDays = updateSpots(state, id, false);
-          setAppointments(appointments);
-          setDays(updatedDays);
+          setAppointments(appointments)
         })
     }, 
     deleteInterview : (id) => {
         const appointment = {
           ...state.appointments[id],
-          interview: {...null}
+          interview: null
         };
-    
+        console.log(appointment);
         const appointments = {
           ...state.appointments,
           [id]: appointment
         };
-
         return axios.delete(`/api/appointments/${id}`, appointment)
-        .then((response) => {
-
-          const updatedDays = updateSpots(state, id, true);
-        
-          setAppointments(appointments);
-          setDays(updatedDays);
+        .then(() => {
+          setAppointments(appointments)
         })
       }
     

@@ -40,24 +40,18 @@ function getInterview (state, appointment) {
   return interview;
 };
 
-function updateSpots (state, appointmentId, addSpots) {
+
+function updateSpots (state) {
   for(const day of state.days) {
-    if(day.appointments.includes(appointmentId)) {
-        if(addSpots) {
-          state[day] = day.spots++;
-        } else {
-          state[day] = day.spots--;
-        }
-        return state.days;
+    let dailySpots = 0;
+    for(const appt of day.appointments) {
+      if(state.appointments[appt].interview === null) {
+        dailySpots++;
+      }
     }
+    day.spots = dailySpots;
   }
-  
-  
-  // for(const day of days) {
-  //   if(day.name === selectedDay) {
-  //     return day.spots; 
-  //   }
-  // }
+  return state.days;
 }
 
 

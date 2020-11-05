@@ -22,7 +22,7 @@ export default function Application() {
   if(loading) {
     return null; 
   }
-
+ 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 

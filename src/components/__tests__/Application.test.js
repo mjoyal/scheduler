@@ -66,12 +66,21 @@ describe('Application', () => {
 
   })
 
-  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
-    const { container } = render(<Application />);
-    await waitForElement(() => getByText(container, '12pm'));
-    expect(getByText(container, "12pm")).toBeInTheDocument();
-    // const appointments = getAllByTestId(container, 'appointment');
+  // it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+  //   const { container } = render(<Application />);
+  //   await waitForElement(() => getByText(container, '12pm'));
+  //   const appointment = getAllByTestId(container, 'appointment')[1];
+  //   fireEvent.click(getByAltText(appointment, 'Edit'));
+    
+  //   fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+  //     target: {value: 'Joe Biden'}
+  //   })
+  //   fireEvent.click(getByAltText(appointment, 'Sylvia Palmer'));
+  //   fireEvent.click(getByText(appointment, 'Save'));
+  //   expect(getByText(appointment, 'Saving')).toBeInTheDocument();
+    
+  //   await waitForElement(() => getByText(appointment, 'Joe Biden'))
  
-  })
+  // })
 
 })
