@@ -9,7 +9,6 @@ const useApplicationData = function () {
     appointments: {},
     interviewers: {}
   })
-  console.log('rerendering');
 
   const [loading, setLoading] = useState(true);
   const setDay = day => setState(prev => ({ ...prev, day }));
@@ -61,7 +60,6 @@ const useApplicationData = function () {
           ...state.appointments[id],
           interview: null
         };
-        console.log(appointment);
         const appointments = {
           ...state.appointments,
           [id]: appointment
