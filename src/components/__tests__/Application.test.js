@@ -63,6 +63,11 @@ describe('Application', () => {
       queryByText(day, "Monday")
       );
       expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
+  })
 
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    const { container } = render(<Application />);
+    await waitForElement(() => getByText(container, ''));
+   
   })
 })

@@ -6,7 +6,7 @@ const Form = function (props) {
   const [name, setName] = useState(props.name || '');
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("")
-  
+  const [interviewError, setInterviewError] = useState("");
   
   const reset = () => {
     setName('');
@@ -18,19 +18,23 @@ const Form = function (props) {
     props.onCancel();
   };
 
-  // const validateInterviewer = () => {
-  //   if(interviewer === null) {
-  //     return; 
-  //   }
-   
-  // }
 
   const validate = () => {
-    if(name === "") {
+    if(name === "" && !interviewer) {
       setError("Student name cannot be blank");
+      setInterviewError('Interviewer must be selected');
       return; 
-    }  
+    } else if (name === "") {
+      setError("Student name cannot be blank");
+      setInterviewError("");
+      return; 
+    } else if(!interviewer){
+      setInterviewError('Interviewer must be selected');
+      setError("");
+      return; 
+    }
     setError("");
+    setInterviewError("");
     props.onSave(name, interviewer);
   }
 
@@ -49,6 +53,7 @@ const Form = function (props) {
             data-testid= "student-name-input"
           />
           <section className="appointment__validation">{error}</section>
+          <section className="appointment__validation">{interviewError}</section>
         </form>
         <InterviewerList 
           interviewers={props.interviewers} 
