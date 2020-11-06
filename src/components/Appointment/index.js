@@ -8,7 +8,7 @@ import Status from './Status';
 import Error from './Error';
 import useVisualMode from '../hooks/useVisualMode';
 import Form from './Form'
-import { updateSpots } from "helpers/selectors";
+
 
 const Appointment = function(props) {
   const EMPTY = 'EMPTY';
