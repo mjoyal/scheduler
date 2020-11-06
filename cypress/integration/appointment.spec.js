@@ -1,5 +1,4 @@
-
-
+import cy from 'cypress';
 
 describe('Appointments', () => {
   beforeEach(() => {

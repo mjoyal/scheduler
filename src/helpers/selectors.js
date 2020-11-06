@@ -42,6 +42,7 @@ function getInterview (state, appointment) {
 
 
 function updateSpots (state) {
+  //take in current state, count number of appointments with no interviews (null)
   for(const day of state.days) {
     let dailySpots = 0;
     for(const appt of day.appointments) {

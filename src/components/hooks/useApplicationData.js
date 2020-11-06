@@ -11,12 +11,14 @@ const useApplicationData = function () {
   })
 
   const [loading, setLoading] = useState(true);
+  // update state helpers
   const setDay = day => setState(prev => ({ ...prev, day }));
   const setDays = days => setState(prev => ({ ...prev, days }));
   const setAppointments = appointments => setState(prev => ({...prev, appointments}));
   const setInterviewers = interviewers => setState(prev => ({...prev, interviewers}));
   
   useEffect(() => {
+    // original load, only runs once 
     const promise1 = axios.get(`/api/days`);
     const promise2 = axios.get(`/api/appointments`);
     const promise3 = axios.get(`/api/interviewers`);
@@ -31,7 +33,9 @@ const useApplicationData = function () {
   }, []);
   
   useEffect (() => {
+
    const newDays = updateSpots(state);
+   // update spots count 
     setDays(newDays);
   }, [state.appointments]);
 
@@ -49,7 +53,7 @@ const useApplicationData = function () {
         ...state.appointments,
         [id]: appointment
       }
-      
+      // schedule appointment and update appointment state
        return axios.put(`/api/appointments/${id}`, appointment)
         .then((response) => {
           setAppointments(appointments)
@@ -64,6 +68,7 @@ const useApplicationData = function () {
           ...state.appointments,
           [id]: appointment
         };
+        // delete appointment and update appointment state
         return axios.delete(`/api/appointments/${id}`, appointment)
         .then(() => {
           setAppointments(appointments)
